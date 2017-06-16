@@ -8,7 +8,7 @@
 #![ allow (unused_parens) ]
 
 #[ macro_use ]
-extern crate ioctl;
+extern crate nix;
 
 #[ macro_use ]
 extern crate lazy_static;

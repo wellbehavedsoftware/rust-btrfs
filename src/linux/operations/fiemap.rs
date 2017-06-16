@@ -56,9 +56,14 @@ pub fn get_file_extent_map (
 
 		if extent_count != 0 {
 
+			let mapped_count = c_file_extent_map.info.mapped_extents as usize;
+			// file without extents, e.g. due to delayed allocation
+			if mapped_count == 0 {
+				break;
+			}
+
 			let last_mapped_extent =
-				c_file_extent_map.extents [
-					c_file_extent_map.info.mapped_extents as usize - 1];
+				c_file_extent_map.extents [mapped_count - 1];
 
 			if last_mapped_extent.flags & FIEMAP_EXTENT_LAST != 0 {
 				break;
@@ -178,7 +183,7 @@ fn get_c_file_extent_map (
 
 	};
 
-	if fiemap_result != 0 {
+	if let Err(e) = fiemap_result {
 
 		return Err (
 			"Error getting file extent map".to_string ()

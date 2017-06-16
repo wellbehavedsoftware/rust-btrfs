@@ -77,19 +77,14 @@ pub fn defragment_range (
 		)
 	};
 
-	if ioctl_result != 0 {
-
-		return Err (
-			format! (
+	match ioctl_result {
+		Ok(_) => Ok(()),
+		Err(e) => {
+			Err(format! (
 				"Defragment IOCTL returned {}",
-				ioctl_result));
-
+				e))
+		}
 	}
-
-	// return ok
-
-	Ok (())
-
 }
 
 // ex: noet ts=4 filetype=rust

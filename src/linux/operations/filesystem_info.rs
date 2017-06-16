@@ -28,7 +28,7 @@ pub fn get_filesystem_info (
 
 	};
 
-	if get_fs_info_result != 0 {
+	if let Err(e) = get_fs_info_result {
 
 		return Err (
 			"Error getting btrfs filesystem information".to_string ()
@@ -77,7 +77,7 @@ pub fn get_device_info (
 
 	};
 
-	if get_dev_info_result != 0 {
+	if let Err(e) = get_dev_info_result {
 
 		match io::Error::last_os_error ().raw_os_error () {
 

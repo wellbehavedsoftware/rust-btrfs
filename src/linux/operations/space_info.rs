@@ -131,7 +131,7 @@ fn get_c_space_info (
 				c_space_args as * mut IoctlSpaceArgs)
 		};
 
-	if get_space_args_real_result != 0 {
+	if let Err(e) = get_space_args_real_result {
 
 		return Err (
 			"Error getting btrfs space information".to_string ()

@@ -107,12 +107,12 @@ pub fn deduplicate_range (
 
 	};
 
-	if file_dedupe_range_result != 0 {
+	if let Err(e) = file_dedupe_range_result {
 
 		return Err (
 			format! (
 				"Dedupe ioctl returned {}",
-				file_dedupe_range_result)
+				e)
 		);
 
 	}
